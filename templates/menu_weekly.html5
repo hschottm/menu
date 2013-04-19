@@ -1,0 +1,123 @@
+
+<div class="menuweekly block <?php echo $this->class; ?>">
+<?php $counter = 0; ?>
+<?php foreach ($this->weeks as $week): ?>
+<?php $counter++; ?>
+<h2><?php echo $week['title']; ?></h2>
+<table>
+	<tr>
+		<td class="date"><?php echo $week['days'][0]; ?><?php if (strlen($week['mo_suffix'])) echo ' <div class="appendix">(' . $week['mo_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['mo_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['mo_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['mo_has_alternate_text']): ?>
+	<?php echo $week['mo_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['mo_menu']; ?></span>
+<?php if ($week['mo_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['mo_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['mo_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="date"><?php echo $week['days'][1]; ?><?php if (strlen($week['tu_suffix'])) echo ' <div class="appendix">(' . $week['tu_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['tu_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['tu_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['tu_has_alternate_text']): ?>
+	<?php echo $week['tu_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['tu_menu']; ?></span>
+<?php if ($week['tu_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['tu_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['tu_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="date"><?php echo $week['days'][2]; ?><?php if (strlen($week['we_suffix'])) echo ' <div class="appendix">(' . $week['we_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['we_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['we_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['we_has_alternate_text']): ?>
+	<?php echo $week['we_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['we_menu']; ?></span>
+<?php if ($week['we_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['we_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['we_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="date"><?php echo $week['days'][3]; ?><?php if (strlen($week['th_suffix'])) echo ' <div class="appendix">(' . $week['th_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['th_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['th_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['th_has_alternate_text']): ?>
+	<?php echo $week['th_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['th_menu']; ?></span>
+<?php if ($week['th_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['th_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['th_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="date"><?php echo $week['days'][4]; ?><?php if (strlen($week['fr_suffix'])) echo ' <div class="appendix">(' . $week['fr_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['fr_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['fr_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['fr_has_alternate_text']): ?>
+	<?php echo $week['fr_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['fr_menu']; ?></span>
+<?php if ($week['fr_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['fr_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['fr_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="date"><?php echo $week['days'][5]; ?><?php if (strlen($week['sa_suffix'])) echo ' <div class="appendix">(' . $week['sa_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['sa_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['sa_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['sa_has_alternate_text']): ?>
+	<?php echo $week['sa_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['sa_menu']; ?></span>
+<?php if ($week['sa_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['sa_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['sa_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="date"><?php echo $week['days'][6]; ?><?php if (strlen($week['su_suffix'])) echo ' <div class="appendix">(' . $week['su_suffix'] . ')</div>'; ?></td>
+		<td class="<?php if ($week['su_has_alternate_text']): ?>alternate<?php else: ?>dish<?php endif; ?>"<?php if ($week['su_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['su_has_alternate_text']): ?>
+	<?php echo $week['su_alternate_text']; ?>
+<?php else: ?>
+	<span class="dishtext"><?php echo $week['su_menu']; ?></span>
+<?php if ($week['su_has_additional_text']): ?>
+	<div class="additional"><?php echo $week['su_additional_text']; ?></div>
+<?php endif; ?>
+		</td>
+		<td class="price">
+		<?php echo $week['su_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+</table>
+<?php if ($counter < count($this->weeks)): ?><div class="big-separator"></div><?php endif; ?>
+<?php endforeach; ?>
+</div>

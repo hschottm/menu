@@ -1,0 +1,137 @@
+<div style="text-align: center; vertical-align: middle;"><img style="width: 10cm;" src="../tl_files/menu/pdf_header.png" /></div>
+<p style="text-align: center; font-size: 80%;">2011 Contao Ave &bull; New York &bull; 1-800-266826</p>
+<h1 style="text-align: center; font-weight: bold; font-size: 125%; text-decoration: underline;">Weekly menus</h1>
+<p style="font-size: 80%;">&nbsp;</p>
+<?php $counter = 0; ?>
+<?php foreach ($this->weeks as $week): ?>
+<?php $counter++; ?>
+<h2 style="text-align: center; font-weight: bold; font-size: 110%; text-decoration: underline;"><?php echo $week['title']; ?></h2>
+<table style="font-size: 80%; font-style: italic;" cellpadding="2" cellspacing="3">
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][0]; ?><?php if (strlen($week['mo_suffix'])) echo ' (' . $week['mo_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['mo_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['mo_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['mo_has_alternate_text']): ?>
+	<?php echo $week['mo_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['mo_menu']; ?></span>
+<?php if ($week['mo_has_additional_text']): ?>
+	<br /><?php echo $week['mo_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['mo_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][1]; ?><?php if (strlen($week['tu_suffix'])) echo ' (' . $week['tu_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['tu_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['tu_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['tu_has_alternate_text']): ?>
+	<?php echo $week['tu_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['tu_menu']; ?></span>
+<?php if ($week['tu_has_additional_text']): ?>
+	<br /><?php echo $week['tu_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['tu_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][2]; ?><?php if (strlen($week['we_suffix'])) echo ' (' . $week['we_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['we_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['we_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['we_has_alternate_text']): ?>
+	<?php echo $week['we_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['we_menu']; ?></span>
+<?php if ($week['we_has_additional_text']): ?>
+	<br /><?php echo $week['we_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['we_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][3]; ?><?php if (strlen($week['th_suffix'])) echo ' (' . $week['th_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['th_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['th_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['th_has_alternate_text']): ?>
+	<?php echo $week['th_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['th_menu']; ?></span>
+<?php if ($week['th_has_additional_text']): ?>
+	<br /><?php echo $week['th_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['th_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][4]; ?><?php if (strlen($week['fr_suffix'])) echo ' (' . $week['fr_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['fr_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['fr_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['fr_has_alternate_text']): ?>
+	<?php echo $week['fr_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['fr_menu']; ?></span>
+<?php if ($week['fr_has_additional_text']): ?>
+	<br /><?php echo $week['fr_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['fr_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][5]; ?><?php if (strlen($week['sa_suffix'])) echo ' (' . $week['sa_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['sa_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['sa_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['sa_has_alternate_text']): ?>
+	<?php echo $week['sa_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['sa_menu']; ?></span>
+<?php if ($week['sa_has_additional_text']): ?>
+	<br /><?php echo $week['sa_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['sa_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="font-weight: bold; width: 4cm;"><?php echo $week['days'][6]; ?><?php if (strlen($week['su_suffix'])) echo ' (' . $week['su_suffix'] . ')'; ?></td>
+		<td style="<?php if ($week['su_has_alternate_text']): ?>font-weight: bold; width: 11cm; text-align: center;<?php else: ?>font-weight: bold; width: 11cm; text-align: center;<?php endif; ?>"<?php if ($week['su_has_alternate_text']): ?> colspan="2"<?php endif; ?>>
+<?php if ($week['su_has_alternate_text']): ?>
+	<?php echo $week['su_alternate_text']; ?>
+<?php else: ?>
+	<span style="font-weight: bold; width: 11cm; text-align: center;"><?php echo $week['su_menu']; ?></span>
+<?php if ($week['su_has_additional_text']): ?>
+	<br /><?php echo $week['su_additional_text']; ?>
+<?php endif; ?>
+		</td>
+		<td style="font-weight: bold; width: 3cm; text-align: right;">
+		<?php echo $week['su_price']; ?>
+<?php endif; ?>
+		</td>
+	</tr>
+</table>
+<?php if ($counter < count($this->weeks)): ?><div style="text-align: center; height: 4cm; vertical-align: middle;"><img src="../tl_files/menu/pdf_separator.png" /></div><?php endif; ?>
+<?php endforeach; ?>
+<p>&nbsp;</p>
+<table>
+<tr>
+	<td style="width: 9cm; text-align: left;">Subject to alterations</td>
+	<td style="width: 9cm; text-align: right;"><a style="color: #000000;" href="http://www.contao.org">www.contaos-kitchen.com</a></td>
+</tr>
+</table>
