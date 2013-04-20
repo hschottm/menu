@@ -1,18 +1,21 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <contao@aurealis.de>
- * @package    survey
- * @license    LGPL
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
+ * @package    menu 
+ * @license    LGPL 
+ * @filesource
  */
+
+namespace Contao;
 
 /**
  * Class MenuExport
  *
  * Provide methods to handle the PDF export of weekly menus
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <contao@aurealis.de>
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
  * @package    Controller
  */
 class MenuExport extends Backend
@@ -23,7 +26,7 @@ class MenuExport extends Backend
 	 */
 	public function exportMenuToPDF(DataContainer $dc, $id = null)
 	{
-		if ($this->Input->get('key') != 'export' && $this->Input->get('key') != 'multiple')
+		if (\Input::get('key') != 'export' && \Input::get('key') != 'multiple')
 		{
 			return '';
 		}
@@ -85,10 +88,10 @@ class MenuExport extends Backend
 
 		// Include library
 		require_once(TL_ROOT . '/system/config/tcpdf.php');
-		require_once(TL_ROOT . '/plugins/tcpdf/tcpdf.php');
+		require_once(TL_ROOT . '/system/vendor/tcpdf/tcpdf.php');
 
 		// Create new PDF document
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
+		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
 
 		// Set document information
 		$pdf->SetCreator(PDF_CREATOR);
@@ -150,7 +153,7 @@ class MenuExport extends Backend
 
 		$this->loadLanguageFile('tl_menu_week');
 
-		$tpl = new FrontendTemplate('menu_weekly_pdf');
+		$tpl = new \FrontendTemplate('menu_weekly_pdf');
 
 		foreach ($arrWeeks as $idx => $week)
 		{
@@ -229,27 +232,27 @@ class MenuExport extends Backend
 
 	public function selectMultiple(DataContainer $dc)
 	{
-		if ($this->Input->get('key') != 'multiple')
+		if (\Input::get('key') != 'multiple')
 		{
 			return '';
 		}
-		$postdata = $this->Input->post('men');
+		$postdata = \Input::post('men');
 		if (is_array($postdata))
 		{
 			$this->exportMenuToPDF($dc, $postdata);
-			$this->redirect($this->Environment->script . '?do=' . $this->Input->get('do') . '&amp;table=tl_menu_week&amp;id='.$this->Input->get('id'));
+			$this->redirect(\Environment::get('script') . '?do=' . \Input::get('do') . '&amp;table=tl_menu_week&amp;id='.\Input::get('id'));
 		}
 		$this->loadLanguageFile('tl_menu_week');
 		$return = "";
 		$filter = $this->Session->get('filter');
-		$menufilter = $filter['tl_menu_week_' . $this->Input->get('id')]['limit'];
+		$menufilter = $filter['tl_menu_week_' . \Input::get('id')]['limit'];
 		$limit = '';
 		if (strlen($menufilter) && strcmp($menufilter, 'all') != 0)
 		{
 			$limit = ' LIMIT ' . $menufilter;
 		}
 		$objMenu = $this->Database->prepare("SELECT * FROM tl_menu_week WHERE pid = ? ORDER BY monday DESC$limit")
-			->execute($this->Input->get('id'));
+			->execute(\Input::get('id'));
 		$data = array();
 		$abs_question_no = 0;
 
@@ -260,16 +263,16 @@ class MenuExport extends Backend
 				'id' => $row['id']
 			));
 		}
-		$this->Template = new BackendTemplate('be_menu_select_weekly');
+		$this->Template = new \BackendTemplate('be_menu_select_weekly');
 		$this->Template->back = $GLOBALS['TL_LANG']['MSC']['goBack'];
-		$this->Template->hrefBack = $this->Environment->script . '?do=' . $this->Input->get('do') . '&amp;table=tl_menu_week&amp;id='.$this->Input->get('id');
-		$this->Template->action = $this->Environment->script . '?do=' . $this->Input->get('do') . '&amp;table=tl_menu_week&amp;id='.$this->Input->get('id') . '&amp;key=multiple';
+		$this->Template->hrefBack = \Environment::get('script') . '?do=' . \Input::get('do') . '&amp;table=tl_menu_week&amp;id='.\Input::get('id');
+		$this->Template->action = \Environment::get('script') . '?do=' . \Input::get('do') . '&amp;table=tl_menu_week&amp;id='.\Input::get('id') . '&amp;key=multiple';
 		$buttons = array(
 			'<input type="submit" name="export" id="export" class="tl_submit" accesskey="e" value="' . $GLOBALS['TL_LANG']['tl_menu_week']['export_to_pdf'] . '" />'
 		);
 		$this->Template->buttons = $buttons;
 		$this->Template->lngSelectAll = $GLOBALS['TL_LANG']['MSC']['selectAll'];
-		$this->Template->heading = $this->getLunchOfferCollection($this->Input->get('id'));
+		$this->Template->heading = $this->getLunchOfferCollection(\Input::get('id'));
 		$this->Template->data = $data;
 		return $this->Template->parse();
 	}

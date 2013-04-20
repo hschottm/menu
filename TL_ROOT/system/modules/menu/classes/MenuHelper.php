@@ -1,18 +1,21 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * @copyright  Helmut Schottmüller 2011
- * @author     Helmut Schottmüller <contao@aurealis.de>
- * @package    menu
- * @license    LGPL
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
+ * @package    menu 
+ * @license    LGPL 
+ * @filesource
  */
+
+namespace Contao;
 
 /**
  * Class MenuHelper
  *
  * Provide helper methods for the menu extension
- * @copyright  Helmut Schottmüller 2011
- * @author     Helmut Schottmüller <contao@aurealis.de>
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
  * @package    Controller
  */
 

@@ -1,30 +1,10 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <http://www.aurealis.de>
- * @package    menu
- * @license    LGPL
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
+ * @package    menu 
+ * @license    LGPL 
  * @filesource
  */
 
@@ -44,7 +24,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['menu_template'] = array
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'options_callback'        => array('tl_module_weeklymenus', 'getMenuTemplates'),
-	'eval'                    => array('tl_class'=>'w50')
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "varchar(32) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['next_weeks'] = array
@@ -53,7 +34,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['next_weeks'] = array
 	'default'                 => 3,
 	'exclude'                 => true,
 	'inputType'               => 'text',
-	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+	'sql'                     => "int(10) unsigned NOT NULL default '3'"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['prev_weeks'] = array
@@ -62,7 +44,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['prev_weeks'] = array
 	'default'                 => 0,
 	'exclude'                 => true,
 	'inputType'               => 'text',
-	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+	'sql'                     => "int(10) unsigned NOT NULL default '0"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['menu_collection'] = array
@@ -74,15 +57,16 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['menu_collection'] = array
 	'flag'                    => 1,
 	'inputType'               => 'select',
 	'foreignKey'              => 'tl_menus.title',
-	'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'long')
+	'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+	'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
 /**
  * Class tl_module_weeklymenus
  *
  * Provide miscellaneous methods that are used by the data configuration array.
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <http://www.aurealis.de>
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
  * @package    Controller
  */
 class tl_module_weeklymenus extends Backend

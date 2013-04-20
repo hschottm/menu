@@ -1,40 +1,19 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <http://www.aurealis.de>
- * @package    menu
- * @license    LGPL
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
+ * @package    menu 
+ * @license    LGPL 
  * @filesource
  */
-
 
 /**
  * Class tl_menu_week
  *
  * Provide miscellaneous methods that are used by the data configuration array.
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <http://www.aurealis.de>
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
  * @package    Controller
  */
 class tl_menu_week extends Backend
@@ -454,6 +433,14 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 		'onsubmit_callback' => array
 		(
 			array('tl_menu_week', 'addNewMenus'),
+		),
+		'sql' => array
+		(
+			'keys' => array
+			(
+				'id'    => 'primary',
+				'alias' => 'index',
+			)
 		)
 	),
 
@@ -563,6 +550,18 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 	// Fields
 	'fields' => array
 	(
+		'id' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+		),
+		'pid' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
+		'tstamp' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
 		'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['title'],
@@ -572,7 +571,8 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'sorting'                 => false,
 			'flag'                    => 1,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class' => 'long')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class' => 'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'alias' => array
 		(
@@ -584,7 +584,8 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'save_callback' => array
 			(
 				array('tl_menu_week', 'generateAlias')
-			)
+			),
+			'sql'                     => "varbinary(128) NOT NULL default ''"
 		),
 		'monday' => array
 		(
@@ -598,14 +599,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'save_callback' => array
 			(
 				array('tl_menu_week', 'checkIfMondayIsAMonday')
-			)
+			),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'mo_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'mo_alternate_text' => array
 		(
@@ -613,21 +616,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'mo_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'mo_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'mo_menu' => array
 		(
@@ -638,21 +644,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'mo_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'tu_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'tu_alternate_text' => array
 		(
@@ -660,21 +669,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'tu_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'tu_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'tu_menu' => array
 		(
@@ -685,21 +697,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'tu_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'we_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'we_alternate_text' => array
 		(
@@ -707,21 +722,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'we_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'we_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'we_menu' => array
 		(
@@ -732,21 +750,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'we_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'th_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'th_alternate_text' => array
 		(
@@ -754,21 +775,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'th_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'th_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'th_menu' => array
 		(
@@ -779,21 +803,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'th_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'fr_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'fr_alternate_text' => array
 		(
@@ -801,21 +828,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'fr_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'fr_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'fr_menu' => array
 		(
@@ -826,21 +856,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'fr_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'sa_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'sa_alternate_text' => array
 		(
@@ -848,21 +881,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'sa_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'sa_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'sa_menu' => array
 		(
@@ -873,21 +909,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'sa_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'su_has_alternate_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_alternate_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'su_alternate_text' => array
 		(
@@ -895,21 +934,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'su_add_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['add_new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'su_new_menu' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['new_menu'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'su_menu' => array
 		(
@@ -920,21 +962,24 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_menu.title',
-			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'long'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'su_price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['price'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp' => 'price', 'size'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "double unsigned NOT NULL default '0'"
 		),
 		'mo_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'mo_additional_text' => array
 		(
@@ -942,14 +987,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'tu_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'tu_additional_text' => array
 		(
@@ -957,14 +1004,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'we_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'we_additional_text' => array
 		(
@@ -972,14 +1021,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'th_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'th_additional_text' => array
 		(
@@ -987,14 +1038,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'fr_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'fr_additional_text' => array
 		(
@@ -1002,14 +1055,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'sa_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'sa_additional_text' => array
 		(
@@ -1017,14 +1072,16 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'su_has_additional_text' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['has_additional_text'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'su_additional_text' => array
 		(
@@ -1032,56 +1089,64 @@ $GLOBALS['TL_DCA']['tl_menu_week'] = array
 			'exclude'                 => true,
 			'search'                  => false,
 			'inputType'               => 'textarea',
-			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true)
+			'eval'                    => array('mandatory' => true, 'style'=>'height:60px;', 'allowHtml'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'mo_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		),
 		'tu_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		),
 		'we_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		),
 		'th_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		),
 		'fr_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		),
 		'sa_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		),
 		'su_suffix' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menu_week']['suffix'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>80, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(80) NOT NULL default ''"
 		)
 	)
 );

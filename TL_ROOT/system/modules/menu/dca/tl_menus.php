@@ -1,30 +1,10 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  Helmut Schottmüller 2010
- * @author     Helmut Schottmüller <http://www.aurealis.de>
- * @package    menu
- * @license    LGPL
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
+ * @package    menu 
+ * @license    LGPL 
  * @filesource
  */
 
@@ -41,7 +21,14 @@ $GLOBALS['TL_DCA']['tl_menus'] = array
 		'dataContainer'               => 'Table',
 		'ctable'                      => array('tl_menu_week'),
 		'switchToEdit'                => true,
-		'enableVersioning'            => true
+		'enableVersioning'            => true,
+		'sql' => array
+		(
+			'keys' => array
+			(
+				'id'    => 'primary'
+			)
+		)
 	),
 
 	// List
@@ -124,13 +111,26 @@ $GLOBALS['TL_DCA']['tl_menus'] = array
 	// Fields
 	'fields' => array
 	(
+		'id' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+		),
+		'tstamp' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
+		'sortOrder' => array
+		(
+			'sql'                     => "varchar(32) NOT NULL default ''"
+		),
 		'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_menus']['title'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class' => 'w50')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class' => 'w50'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'alias' => array
 		(
@@ -142,7 +142,8 @@ $GLOBALS['TL_DCA']['tl_menus'] = array
 			'save_callback' => array
 			(
 				array('tl_menus', 'generateAlias')
-			)
+			),
+			'sql'                     => "varbinary(128) NOT NULL default ''"
 		),
 		'description' => array
 		(
@@ -150,7 +151,8 @@ $GLOBALS['TL_DCA']['tl_menus'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('style'=>'height:60px;', 'tl_class'=>'clr')
+			'eval'                    => array('style'=>'height:60px;', 'tl_class'=>'clr'),
+			'sql'                     => "text NULL"
 		)
 	)
 );
@@ -160,8 +162,8 @@ $GLOBALS['TL_DCA']['tl_menus'] = array
  * Class tl_menus
  *
  * Provide miscellaneous methods that are used by the data configuration array.
- * @copyright  Helmut Schottmüller 2010
- * @author     Leo Feyer <http://www.aurealis.de>
+ * @copyright  Helmut Schottmüller 2010-2013
+ * @author     Helmut Schottmüller <https://github.com/hschottm/menu>
  * @package    Controller
  */
 class tl_menus extends Backend

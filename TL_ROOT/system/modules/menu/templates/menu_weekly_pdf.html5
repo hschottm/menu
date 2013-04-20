@@ -1,4 +1,4 @@
-<div style="text-align: center; vertical-align: middle;"><img style="width: 10cm;" src="../tl_files/menu/pdf_header.png" /></div>
+<div style="text-align: center; vertical-align: middle;"><img style="width: 10cm;" src="../files/menu/pdf_header.png" /></div>
 <p style="text-align: center; font-size: 80%;">2011 Contao Ave &bull; New York &bull; 1-800-266826</p>
 <h1 style="text-align: center; font-weight: bold; font-size: 125%; text-decoration: underline;">Weekly menus</h1>
 <p style="font-size: 80%;">&nbsp;</p>
@@ -126,7 +126,7 @@
 		</td>
 	</tr>
 </table>
-<?php if ($counter < count($this->weeks)): ?><div style="text-align: center; height: 4cm; vertical-align: middle;"><img src="../tl_files/menu/pdf_separator.png" /></div><?php endif; ?>
+<?php if ($counter < count($this->weeks)): ?><div style="text-align: center; height: 4cm; vertical-align: middle;"><img src="../files/menu/pdf_separator.png" /></div><?php endif; ?>
 <?php endforeach; ?>
 <p>&nbsp;</p>
 <table>
