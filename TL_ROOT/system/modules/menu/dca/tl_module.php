@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['prev_weeks'] = array
 	'exclude'                 => true,
 	'inputType'               => 'text',
 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
-	'sql'                     => "int(10) unsigned NOT NULL default '0"
+	'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['menu_collection'] = array
